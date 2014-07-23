@@ -12,13 +12,6 @@ KAKADU - search index engine with
 ```javascript
 var KAKADU = require('./kakadu.js');
 
-KAKADU.LogLevel.setLevel(
-    KAKADU.LogLevel.INFO |
-    KAKADU.LogLevel.DEBUG |
-    KAKADU.LogLevel.TRACE |
-    KAKADU.LogLevel.WARN |
-    KAKADU.LogLevel.ERROR
-);
 
 var schema = new KAKADU.Schema()
     .addField(KAKADU.Field('id').setType(KAKADU.Type.KEYWORD).setBoost(0.01))
@@ -91,22 +84,22 @@ storage.open(function () {
                     .setHighlight(['name', 'author', 'cat', 'series_t'])
                     .setSuggest('hel', ['description'])
                     .AND()
-		      .term('sequence_i', 1)
-		      .OR()
-			.term('cat', 'book')
-			.term('cat', 'hardcover')
-		      .END()
-		      .NOT()
-			.OR()
-			  .term('inStock', false)
-			.END()
-		      .END()
-		      .OR()
-			.term('name', 'lightning')
-			.term('name', 'lucene')
-			.term('author', 'rick')
-			.term('series_t', 'jaqkon')
-		      .END()
+        		      .term('sequence_i', 1)
+        		      .OR()
+            			.term('cat', 'book')
+            			.term('cat', 'hardcover')
+        		      .END()
+        		        .NOT()
+            			    .OR()
+            			        .term('inStock', false)
+            			    .END()
+        		        .END()
+        		      .OR()
+            			.term('name', 'lightning')
+            			.term('name', 'lucene')
+            			.term('author', 'rick')
+            			.term('series_t', 'jaqkon')
+        		      .END()
                     .END();
 
                 var searcher = new KAKADU.Searcher(indexer.getSchema(), storage);
